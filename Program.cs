@@ -1,30 +1,11 @@
-﻿//Задача 54: Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива.
+﻿//Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
 //Например, задан массив:
+//
 //1 4 7 2
 //5 9 2 3
 //8 4 2 4
-//В итоге получается вот такой массив:
-//7 4 2 1
-//9 5 3 2
-//8 4 4 2
-
-void ShortSorting (int[] input, bool Ascending)
-        {
-            int buffer;//, buffer_low;
-            
-            for (int i = 0; i < input.Length; i++)
-            {
-                for (int j = i+1; j < input.Length; j++)
-                {
-                    if (((input[i] > input[j]) && Ascending == true) || ((input[i] < input[j]) && Ascending == false))
-                    {
-                        buffer = input[i];
-                        input[i] = input[j];
-                        input[j] = buffer;
-                    }
-                }            
-            }
-        }
+//5 2 6 7
+//Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: 1 строка
 
 
 int [,] FillArray (int rows, int columns, int min, int max)
@@ -41,44 +22,38 @@ int [,] FillArray (int rows, int columns, int min, int max)
     return result;
 }
 
-int [] GetRowByIndexFrom (int [,] Array, int rowIndex)
+int [] SumByRow (int [,] Array)
 {
     int rows = Array.GetUpperBound(0)+1;
     int columns = Array.Length / rows;
-    int [] result = new int [columns];
+    int [] result = new int [rows];
 
-    for (int i = 0; i < columns; i++)
+    for (int i = 0; i < rows; i++)
     {
-        result [i] = Array [rowIndex, i];
+        for (int j = 0; j < columns; j++)
+        {
+            result [i] += Array [i, j];
+        }
     }
     return result;
 }
 
-void SetRowByIndexTo (int [,] Array, int [] row, int rowIndex)
+int indexOfMinimalItem(int [] Array)
 {
-    int rows = Array.GetUpperBound(0)+1;
-    int columns = Array.Length / rows;
-    for (int i = 0; i < columns; i++)
+    int buffer = Array[0];
+    int result = 0;
+    for (int i = 0; i < Array.Length; i++)
     {
-        Array [rowIndex, i] = row [i];
+        if (Array[i] < buffer)
+        {
+            buffer = Array[i];
+            result = i;
+        }
     }
+    return result;
 }
 
-void SortArrayByRows(int [,] Array)
-{
-    int rows = Array.GetUpperBound(0)+1;
-    int columns = Array.Length / rows;
-    int [] row = new int [columns];
-
-    for (int i = 0; i < rows; i++)
-    {
-        row = GetRowByIndexFrom (Array, i);
-        ShortSorting (row, false);
-        SetRowByIndexTo (Array, row, i);
-    }
-}
-
-void WriteArray ( int [,] Array)
+void WriteArray2D ( int [,] Array)
 {
     int rows = Array.GetUpperBound(0)+1;
     int columns = Array.Length / rows;
@@ -88,17 +63,29 @@ void WriteArray ( int [,] Array)
         for (int j = 0; j < columns; j++)
         {
             string c = (Array[i,j] > 0) ? " " : "";
-            Console.Write($"\t{c}{Array [i, j]:d2}");
+            Console.Write($"\t{c}{Array [i, j]}");
         }
         Console.Write("\n");
     }
 }
 
 //=======================================
-int [,] Array = FillArray (3,5,-100,100);
+
+int cols, rows;
+
 Console.Clear();
+Console.WriteLine("Enter number of rows of the new array: ");
+rows = int.Parse(Console.ReadLine()!);
+
+Console.WriteLine("Enter number of columns of the new array: ");
+cols = int.Parse(Console.ReadLine()!);
+
+int [,] Array = FillArray (rows, cols, -100, 100);
 Console.WriteLine($"The source array is: ");
-WriteArray(Array);
-SortArrayByRows (Array);
-Console.WriteLine($"The array sorted by descending is: ");
-WriteArray(Array);
+WriteArray2D(Array);
+
+int [] SumByRows = SumByRow (Array);
+Console.WriteLine($"\n Sums of rows are: " + String.Join(", ", SumByRows));
+
+int NumberOfMinimalSumRow = indexOfMinimalItem (SumByRows) +1;
+Console.WriteLine($"\nNumber of the row producing minimal sum of items is: {NumberOfMinimalSumRow}\n\n");
