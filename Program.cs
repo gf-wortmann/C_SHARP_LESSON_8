@@ -1,14 +1,37 @@
-﻿//Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
-//Например, задан массив:
-//
-//1 4 7 2
-//5 9 2 3
-//8 4 2 4
-//5 2 6 7
-//Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: 1 строка
+﻿//Задача 58: Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
+//Например, даны 2 матрицы:
+//2 4 | 3 4
+//3 2 | 3 3
+//Результирующая матрица будет:
+//18 20
+//15 18
 
 
-int [,] FillArray (int rows, int columns, int min, int max)
+int [,] MultiplyMatrices (int [,] A, int [,] B)
+{
+    int rowsInA = A.GetUpperBound(0)+1;
+    int columnsInA = A.Length / rowsInA;
+    int rowsInB = B.GetUpperBound(0)+1;
+    int columnsInB = B.Length / rowsInB;
+    int [,] result = new int [rowsInA, columnsInB];
+    if (columnsInA != rowsInB) return (FillArray (rowsInA, columnsInB, 0, 0));
+    
+    for (int i = 0; i < rowsInA; i++ )
+    {
+        for (int j = 0; j < columnsInB; j++)
+        {
+            for (int r = 0; r < columnsInA; r++)
+            {
+                result [i, j] += (A [i,r] * B[j, r]);
+            }
+        }
+
+    }
+    WriteArray2D ( result);
+    return result;
+}
+
+int [,] FillArray (int rows, int columns, int min, int max) //, bool zeroed)
 {
     int [,] result = new int [rows, columns];
     Random k = new Random();
@@ -16,6 +39,7 @@ int [,] FillArray (int rows, int columns, int min, int max)
     {
         for (int j = 0; j < columns; j++)
         {
+           //result [i,j] =  (!zeroed) ? k.Next(min+1, max) : 0;
            result [i,j] = k.Next(min+1, max);
         }
     }
@@ -33,21 +57,6 @@ int [] SumByRow (int [,] Array)
         for (int j = 0; j < columns; j++)
         {
             result [i] += Array [i, j];
-        }
-    }
-    return result;
-}
-
-int indexOfMinimalItem(int [] Array)
-{
-    int buffer = Array[0];
-    int result = 0;
-    for (int i = 0; i < Array.Length; i++)
-    {
-        if (Array[i] < buffer)
-        {
-            buffer = Array[i];
-            result = i;
         }
     }
     return result;
@@ -80,12 +89,16 @@ rows = int.Parse(Console.ReadLine()!);
 Console.WriteLine("Enter number of columns of the new array: ");
 cols = int.Parse(Console.ReadLine()!);
 
-int [,] Array = FillArray (rows, cols, -100, 100);
-Console.WriteLine($"The source array is: ");
-WriteArray2D(Array);
+int [,] matrixA = FillArray (rows, cols, -100, 100);
+Console.WriteLine($"The Matrix A is: ");
+WriteArray2D(matrixA);
 
-int [] SumByRows = SumByRow (Array);
-Console.WriteLine($"\n Sums of rows are: " + String.Join(", ", SumByRows));
+int [,] matrixB = FillArray (cols, rows, -100, 100);
+Console.WriteLine($"The Matrix B is: ");
+WriteArray2D(matrixB);
 
-int NumberOfMinimalSumRow = indexOfMinimalItem (SumByRows) +1;
-Console.WriteLine($"\nNumber of the row producing minimal sum of items is: {NumberOfMinimalSumRow}\n\n");
+//int [] SumByRows = SumByRow (Array);
+//Console.WriteLine($"\n Sums of rows are: " + String.Join(", ", SumByRows));
+
+//int NumberOfMinimalSumRow = indexOfMinimalItem (SumByRows) +1;
+//Console.WriteLine($"\nNumber of the row producing minimal sum of items is: {NumberOfMinimalSumRow}\n\n");
