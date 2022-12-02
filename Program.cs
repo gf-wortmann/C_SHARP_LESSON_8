@@ -22,16 +22,15 @@ int [,] MultiplyMatrices (int [,] A, int [,] B)
         {
             for (int r = 0; r < columnsInA; r++)
             {
-                result [i, j] += (A [i,r] * B[j, r]);
+                result [i, j] += (A [i,r] * B[r, j]);
             }
         }
 
     }
-    WriteArray2D ( result);
     return result;
 }
 
-int [,] FillArray (int rows, int columns, int min, int max) //, bool zeroed)
+int [,] FillArray (int rows, int columns, int min, int max) 
 {
     int [,] result = new int [rows, columns];
     Random k = new Random();
@@ -39,24 +38,7 @@ int [,] FillArray (int rows, int columns, int min, int max) //, bool zeroed)
     {
         for (int j = 0; j < columns; j++)
         {
-           //result [i,j] =  (!zeroed) ? k.Next(min+1, max) : 0;
            result [i,j] = k.Next(min+1, max);
-        }
-    }
-    return result;
-}
-
-int [] SumByRow (int [,] Array)
-{
-    int rows = Array.GetUpperBound(0)+1;
-    int columns = Array.Length / rows;
-    int [] result = new int [rows];
-
-    for (int i = 0; i < rows; i++)
-    {
-        for (int j = 0; j < columns; j++)
-        {
-            result [i] += Array [i, j];
         }
     }
     return result;
@@ -83,22 +65,26 @@ void WriteArray2D ( int [,] Array)
 int cols, rows;
 
 Console.Clear();
-Console.WriteLine("Enter number of rows of the new array: ");
+Console.WriteLine("Enter number of rows in the 1st matrix: ");
 rows = int.Parse(Console.ReadLine()!);
 
-Console.WriteLine("Enter number of columns of the new array: ");
+Console.WriteLine("Enter number of columns in the 1st matrix: ");
 cols = int.Parse(Console.ReadLine()!);
+Console.WriteLine($"\nIt is assumed 2nd matrix has {cols} rows and {rows} columns.\n");
 
-int [,] matrixA = FillArray (rows, cols, -100, 100);
+int [,] matrixA = FillArray (rows, cols, -10, 10);
+//int [,] matrixA = {{2, 4}, {3, 2}};
 Console.WriteLine($"The Matrix A is: ");
 WriteArray2D(matrixA);
 
-int [,] matrixB = FillArray (cols, rows, -100, 100);
+int [,] matrixB = FillArray (cols, rows, -10, 10);
+//int [,] matrixB = {{3, 4}, {3, 3}};
 Console.WriteLine($"The Matrix B is: ");
 WriteArray2D(matrixB);
 
-//int [] SumByRows = SumByRow (Array);
-//Console.WriteLine($"\n Sums of rows are: " + String.Join(", ", SumByRows));
-
-//int NumberOfMinimalSumRow = indexOfMinimalItem (SumByRows) +1;
-//Console.WriteLine($"\nNumber of the row producing minimal sum of items is: {NumberOfMinimalSumRow}\n\n");
+int [,] Product;// = new int [rows, rows];
+//int [,] Product = new int [2, 2]; //to be clarified
+Product = MultiplyMatrices (matrixA, matrixB);
+Console.WriteLine($"The Product Matrix is: ");
+WriteArray2D (Product);
+Console.WriteLine("\n\n");
