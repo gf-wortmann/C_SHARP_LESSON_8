@@ -51,5 +51,5 @@ void PrintArray3D ( int [,,] Array)
 
 Console.Clear();
 
-int [,,] matrix3 = FillArray(2,2,2,0,10);
+int [,,] matrix3 = FillArray(3,3,3,0,10);
 PrintArray3D(matrix3);
