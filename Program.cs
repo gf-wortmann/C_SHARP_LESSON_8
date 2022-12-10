@@ -61,55 +61,28 @@ int [,,] FillArray (int layers, int rows, int columns, int min, int max)
     return result;
 }
 
-void PrintArray3D ( int [,,] Array)
-{
-    int rows = Array.GetUpperBound(0)+1;
-    int columns = Array.GetUpperBound(1) + 1;
-    int layers = Array.GetUpperBound(2) + 1;
-    
-    for (int k = 0; k < layers; k++)
-    {
-        for (int i = 0; i < rows; i++)
-        {   
-            for (int j = 0; j < columns; j++)
-            {
-                string c = (Array[j, i, k] > 0) ? " " : "";
-                c = (Array [j, i, k] == 0) ? c + " " : c;
-                c = (Array [j, i, k] / 10 == 0) ? c + " ": c;
-
-                Console.Write($"\t{c}{Array [j, i, k]} ");
-                Console.Write($"[{j}, {i}, {k}]");
-            }
-            Console.Write("\n");
-        }
-        Console.Write("\n");
-    }
-}
-
 //=======================================
 
-Console.Clear();
 
-int [,,] matrix3 = FillArray(3,3,3,-20,20);
 //PrintArray3D(matrix3);
 
-int [,,] M =    {
-                    {
-                        {111, 121, 131}, 
-                        {211, 221, 231},
-                        {311, 321, 331}
-                    },
-                    {
-                        {112, 122, 132},
-                        {212, 222, 232},
-                        {312, 322, 332}
-                    },
-                    {
-                        {113, 123, 133},
-                        {213, 223, 233},
-                        {313, 323, 333}
-                    }
-                };
+//int [,,] M =    {
+//                    {
+//                        {111, 121, 131}, 
+//                        {211, 221, 231},
+//                        {311, 321, 331}
+//                    },
+//                    {
+//                        {112, 122, 132},
+//                        {212, 222, 232},
+//                        {312, 322, 332}
+//                    },
+//                    {
+//                        {113, 123, 133},
+//                        {213, 223, 233},
+//                        {313, 323, 333}
+//                    }
+//                };
 
 //PrintArray3D (M);
 
@@ -118,28 +91,28 @@ int [,,] M =    {
 //Console.Write($" {M [0,0,0]}, {M [1,0,0]} \n");
 
 
-int [,] N =    {
-                    {11, 12, 13}, 
-                    {21, 22, 23}
-                };
-void Print2D (int [,] Array)
-{
-    int basic = Array.GetUpperBound(0);
-    int top = Array.GetUpperBound(1);
+//int [,] N =    {
+//                    {11, 12, 13}, 
+//                    {21, 22, 23}
+//                };
+//void Print2D (int [,] Array)
+//{
+//    int basic = Array.GetUpperBound(0);
+//    int top = Array.GetUpperBound(1);
 
-    for (int i =0 ; i <= basic ; i++)
-    {
-        for (int j = 0 ; j <= top; j++)
-        {
-            Console.Write($"{Array [i,j]} [{i}, {j}]");
-        }
-        Console.WriteLine();
-    }
-}
+//    for (int i =0 ; i <= basic ; i++)
+//    {
+//        for (int j = 0 ; j <= top; j++)
+//        {
+//            Console.Write($"{Array [i,j]} [{i}, {j}]");
+//        }
+//        Console.WriteLine();
+//    }
+//}
 
 //Print2D (N);
 
-void Print2D1 (int [,,] Array)
+void Print3D (int [,,] Array)
 {
     int basic = Array.GetUpperBound(0);
     int mid = Array.GetUpperBound(1);
@@ -162,8 +135,15 @@ void Print2D1 (int [,,] Array)
     }
 }
 
-Print2D1 (matrix3);
-Print2D1 (M);
+Console.Clear();
+int [,,] matrix3 = FillArray(3,3,3,-20,20);
+int [,,] matrix2 = FillArray(2,2,2,-20,20);
+
+Console.WriteLine($"Randomly filled array 3x3x3: ");
+Print3D (matrix3);
+Console.WriteLine($"Randomly filled array 2x2x2: ");
+Print3D (matrix2);
+//Print3D (M);
 
 int [,,] Z = 
 {
@@ -176,6 +156,8 @@ int [,,] Z =
         {26, 55}
     }
 };
-Print2D1 (Z);
-Console.WriteLine($"The array Z has {Z.Length} items.");
-Console.WriteLine($"The array M has {M.Length} items.");
+
+Console.WriteLine($"Array from the task: ");
+Print3D (Z);
+//Console.WriteLine($"The array Z has {Z.Length} items.");
+//Console.WriteLine($"The array M has {M.Length} items.");
