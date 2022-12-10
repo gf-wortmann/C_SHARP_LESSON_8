@@ -64,53 +64,6 @@ int [,,] FillArray (int layers, int rows, int columns, int min, int max)
 //=======================================
 
 
-//PrintArray3D(matrix3);
-
-//int [,,] M =    {
-//                    {
-//                        {111, 121, 131}, 
-//                        {211, 221, 231},
-//                        {311, 321, 331}
-//                    },
-//                    {
-//                        {112, 122, 132},
-//                        {212, 222, 232},
-//                        {312, 322, 332}
-//                    },
-//                    {
-//                        {113, 123, 133},
-//                        {213, 223, 233},
-//                        {313, 323, 333}
-//                    }
-//                };
-
-//PrintArray3D (M);
-
-//Console.Write($" {M [0,0,0]}, {M [0,0,1]} \n");
-//Console.Write($" {M [0,0,0]}, {M [0,1,0]} \n");
-//Console.Write($" {M [0,0,0]}, {M [1,0,0]} \n");
-
-
-//int [,] N =    {
-//                    {11, 12, 13}, 
-//                    {21, 22, 23}
-//                };
-//void Print2D (int [,] Array)
-//{
-//    int basic = Array.GetUpperBound(0);
-//    int top = Array.GetUpperBound(1);
-
-//    for (int i =0 ; i <= basic ; i++)
-//    {
-//        for (int j = 0 ; j <= top; j++)
-//        {
-//            Console.Write($"{Array [i,j]} [{i}, {j}]");
-//        }
-//        Console.WriteLine();
-//    }
-//}
-
-//Print2D (N);
 
 void Print3D (int [,,] Array)
 {
@@ -138,13 +91,6 @@ void Print3D (int [,,] Array)
 Console.Clear();
 int [,,] matrix3 = FillArray(3,3,3,-20,20);
 int [,,] matrix2 = FillArray(2,2,2,-20,20);
-
-Console.WriteLine($"Randomly filled array 3x3x3: ");
-Print3D (matrix3);
-Console.WriteLine($"Randomly filled array 2x2x2: ");
-Print3D (matrix2);
-//Print3D (M);
-
 int [,,] Z = 
 {
     {
@@ -157,7 +103,9 @@ int [,,] Z =
     }
 };
 
-Console.WriteLine($"Array from the task: ");
+Console.WriteLine($"Randomly filled array 3x3x3: ");
+Print3D (matrix3);
+Console.WriteLine($"Randomly filled array 2x2x2: ");
+Print3D (matrix2);
+Console.WriteLine($"Array from the task 2x2x2: ");
 Print3D (Z);
-//Console.WriteLine($"The array Z has {Z.Length} items.");
-//Console.WriteLine($"The array M has {M.Length} items.");
